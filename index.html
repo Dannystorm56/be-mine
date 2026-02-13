@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Favorite Person</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #ffeef2;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        #container {
+            padding: 20px;
+        }
+
+        .gif-container img {
+            max-width: 200px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #d63384;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            width: 100%;
+            height: 100px;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            font-weight: bold;
+        }
+
+        #yesBtn {
+            background-color: #ff4d6d;
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.3);
+            z-index: 1;
+        }
+
+        #noBtn {
+            background-color: #adb5bd;
+            color: white;
+            position: absolute; /* Needed for the jumping effect */
+        }
+
+        /* Success State */
+        .hidden { display: none; }
+        
+        #celebration h1 {
+            font-size: 2rem;
+            animation: heartBeat 1.2s infinite;
+        }
+
+        @keyframes heartBeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="container">
+        <div class="gif-container">
+            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ3bmZqZzR3eHh3eHh3eHh3eHh3eHh3eHh3eHh3eHh3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/c76IJbxBmyU7v6qBPy/giphy.gif" alt="Cute bear">
+        </div>
+        
+        <h1 id="question">Will you be my Valentine? 💖</h1>
+
+        <div class="buttons">
+            <button id="yesBtn">Yes!</button>
+            <button id="noBtn">No</button>
+        </div>
+    </div>
+
+    <div id="celebration" class="hidden">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHpueGZ3bmZqZzR3eHh3eHh3eHh3eHh3eHh3eHh3eHh3eHh3JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/l41lTfuxV373l68lG/giphy.gif" alt="Happy dance">
+        <h1>Yay! See you soon, sweetheart! 🥰</h1>
+    </div>
+
+    <script>
+        const noBtn = document.getElementById('noBtn');
+        const yesBtn = document.getElementById('yesBtn');
+        const container = document.getElementById('container');
+        const celebration = document.getElementById('celebration');
+
+        // Function to move the "No" button
+        const moveButton = () => {
+            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            
+            noBtn.style.left = `${x}px`;
+            noBtn.style.top = `${y}px`;
+            
+            // Optional: Change text when they try to click No
+            const messages = ["Wrong choice!", "Try again 😜", "No isn't an option!", "Not today!", "Nice try!"];
+            noBtn.innerText = messages[Math.floor(Math.random() * messages.length)];
+        };
+
+        // Mobile users use "touchstart", PC users use "mouseover"
+        noBtn.addEventListener('touchstart', (e) => {
+            e.preventDefault(); // Prevents clicking
+            moveButton();
+        });
+
+        noBtn.addEventListener('mouseover', moveButton);
+
+        yesBtn.addEventListener('click', () => {
+            container.classList.add('hidden');
+            celebration.classList.remove('hidden');
+            // You could even add a JS Confetti library here!
+        });
+    </script>
+</body>
+</html>
